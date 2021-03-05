@@ -4,12 +4,14 @@ import generateUniqueId from 'generate-unique-id'
 
 import styles from './styles/PhoneBook.module.css'
 
+const INITIAL_STATE = {
+    name: '',
+    number: '',
+}
+
 class ContactForm extends Component {
 
-    state = {
-        name: '',
-        number: '',
-    }
+    state = INITIAL_STATE;
 
     sendContactToApp(newContact) {
         this.props.handleSubmit(newContact);
@@ -20,10 +22,7 @@ class ContactForm extends Component {
     }
 
     resetState() {
-        this.setState({
-            name: '',
-            number: '',
-        })
+        this.setState(INITIAL_STATE)
     }
 
     createNewContact() {
@@ -33,8 +32,8 @@ class ContactForm extends Component {
         }
     }
 
-    handleNewValue = (ev) => {
-        const { value, name } = ev.target;
+    handleNewValue = ({ target }) => {
+        const { value, name } = target;
         this.setState({
             [name]: value,
         })

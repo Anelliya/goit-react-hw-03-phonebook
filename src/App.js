@@ -12,17 +12,24 @@ import './App.css';
 class App extends Component {
 
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   }
 
-  handleSaveContact = (newContact) => {
+  componentDidMount() {
+    const savedContacts = JSON.parse(window.localStorage.getItem('contacts'));
+    if (window.localStorage.getItem('contacts')) {
+      this.setState({
+        contacts: savedContacts
+      })
+    }
+  }
 
+  componentDidUpdate() {
+    window.localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+  }
+
+  handleAddContact = (newContact) => {
     this.setState(({ contacts }) => ({
       contacts: [newContact, ...contacts]
     }))
@@ -45,7 +52,7 @@ class App extends Component {
     return (
       <div className={styles.container}>
         <h1>Phonebook</h1>
-        <ContactForm options={['name', 'number']} handleSubmit={this.handleSaveContact} contacts={contacts} />
+        <ContactForm options={['name', 'number']} handleSubmit={this.handleAddContact} contacts={contacts} />
         <h2>Contacts: </h2>
         <Filter handleCnange={this.handleFilterValue} filterList={filter} />
         <ContactList contactsList={filteredContacts} handleClick={this.handleDeleteContact} />
@@ -56,11 +63,3 @@ class App extends Component {
 
 export default App;
 
-
- // первая версия фильтра(функция получает готовые данные)
-    // const contacts = this.state.contacts;
-    // console.log('get', value)
-
-    // const filteredContacts = contacts.filter(contact => (contact.name.toLowerCase().includes(value.toLowerCase())));
-    // this.setState({ filter: filteredContacts });
-    // console.log('filer', this.state.filter)
