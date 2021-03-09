@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import generateUniqueId from 'generate-unique-id'
 
-
 import styles from './styles/PhoneBook.module.css'
 
 const INITIAL_STATE = {
@@ -54,17 +53,22 @@ class ContactForm extends Component {
     }
 
     render() {
-        const inputNames = this.props.options;
 
         return (
             <form className={styles.form}>
-                {inputNames.map(inputName => (
-                    <label key={inputName} className={styles.label}>
-                        {inputName}
-                        <input type='text' key={inputName} name={inputName} value={this.state[inputName]} onChange={this.handleNewValue} className={styles.input} />
-                    </label>
-                ))}
-                <button onClick={this.handleNewContact} disabled={!this.state.name || !this.state.number} className={styles.btn}>Add contact</button>
+                <label key='name' className={styles.label}>
+                    <input type="text" key='name' name='name'
+                        value={this.state.name} onChange={this.handleNewValue}
+                        className={styles.input} />
+                </label>
+                <label key='number' className={styles.label}>
+                    <input type="text" key='number' name='number'
+                        value={this.state.number} onChange={this.handleNewValue}
+                        className={styles.input} />
+                </label>
+                <button onClick={this.handleNewContact}
+                    disabled={!this.state.name || !this.state.number}
+                    className={styles.btn}>Add contact</button>
             </form >
         )
     }

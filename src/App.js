@@ -52,7 +52,7 @@ class App extends Component {
     return (
       <div className={styles.container}>
         <h1>Phonebook</h1>
-        <ContactForm options={['name', 'number']} handleSubmit={this.handleAddContact} contacts={contacts} />
+        <ContactForm handleSubmit={this.handleAddContact} contacts={contacts} />
         <h2>Contacts: </h2>
         <Filter handleCnange={this.handleFilterValue} filterList={filter} />
         <ContactList contactsList={filteredContacts} handleClick={this.handleDeleteContact} />
